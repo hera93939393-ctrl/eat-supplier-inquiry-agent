@@ -1,5 +1,24 @@
 # REPORT — 공공급식통합플랫폼 공급업체 문의 응대 에이전트
 
+## 0. 실행 방법
+
+```bash
+pip install -r requirements.txt
+```
+
+프로젝트 루트에 `.env` 파일을 만들고 아래처럼 OpenAI API 키를 넣는다(이 저장소에는 포함돼
+있지 않다 — `.gitignore` 처리됨, 직접 발급받은 키를 넣어야 한다):
+
+```
+OPENAI_API_KEY=sk-...
+```
+
+- **단발 질문 테스트**: `python agent.py "냉장고 온도는 몇 도로 유지해야 하나요?"`
+- **평가셋 30문항 전체 채점**: `python evaluate.py` (결과는 `data/eval_results.json`에 저장)
+- **정확도·macro F1·혼동행렬만 다시 보기**: `python compute_f1.py` (위 명령으로 이미 만든 `data/eval_results.json`을 읽는다)
+- **채점기 자체 검증**: `python validate_grader.py`
+- **데모 화면**: `streamlit run app.py` → `http://localhost:8501`
+
 ## 1. 주제와 근거 문서
 
 **주제**: 공공급식통합플랫폼(eaT) 공급업체 회원등록 관련 문의(서류등록/현장심사/절차·일정/자격제한)에
