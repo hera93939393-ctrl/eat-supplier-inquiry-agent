@@ -147,7 +147,7 @@
       "question": "서류심사는 며칠 걸려요?",
       "expected_category": "procedure_timeline",
       "must_include": ["요청한 다음날로부터 최대 7영업일"],
-      "must_not_include": ["다른 일수를 지어냄"]
+      "must_not_include": ["7영업일이 아닌 다른 신규등록 서류심사 기간을 지어냄(단, 준등록회원 변경심사의 3일처럼 문서에 실제로 있는 별개 절차의 기간을 함께 언급하는 것은 허용)"]
     },
     {
       "id": 14,
