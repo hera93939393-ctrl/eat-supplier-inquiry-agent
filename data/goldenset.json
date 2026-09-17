@@ -1,0 +1,296 @@
+{
+  "categories": [
+    "document_review",
+    "site_inspection",
+    "procedure_timeline",
+    "eligibility_restriction",
+    "out_of_scope"
+  ],
+  "prompt_examples": [
+    {
+      "id": "P1",
+      "question": "사업자등록증 낼 때 뭘 확인해요?",
+      "expected_category": "document_review",
+      "must_include": [
+        "법인: 법인명/대표자명/사업자등록번호/법인등록번호/사업장소재지/본점소재지",
+        "개인: 상호명/대표자명/사업자등록번호/생년월일/사업장소재지"
+      ],
+      "must_not_include": [
+        "등기부등본 항목(임원사항 등)과 혼동한 답변"
+      ],
+      "note": "few-shot prompt 예시용 — 채점(eval_set)에는 포함하지 않음"
+    },
+    {
+      "id": "P2",
+      "question": "냉장고 온도는 몇 도로 유지해야 하나요?",
+      "expected_category": "site_inspection",
+      "must_include": [
+        "냉장 10℃ 이하",
+        "냉동 -18℃ 이하"
+      ],
+      "must_not_include": [
+        "다른 온도 수치를 지어냄"
+      ],
+      "note": "few-shot prompt 예시용 — 채점(eval_set)에는 포함하지 않음"
+    }
+  ],
+  "eval_set": [
+    {
+      "id": 1,
+      "category": "document_review",
+      "question": "서류가 흑백이면 어떻게 등록해요?",
+      "expected_category": "document_review",
+      "must_include": ["원본대조필 날인", "업체 직인(도장) 날인", "스캔 후 등록"],
+      "must_not_include": ["재발급이 필요하다는 답변"]
+    },
+    {
+      "id": 2,
+      "category": "document_review",
+      "question": "HACCP 대리점인데 인증서는 어떻게 등록해요?",
+      "expected_category": "document_review",
+      "must_include": [
+        "취급인증정보란에 등록",
+        "대리점계약서 추가 등록 필요",
+        "직접계약이 아니면 중간유통업체-인증업체 간 계약서도 추가"
+      ],
+      "must_not_include": ["직접인증정보란에 등록한다는 답변"]
+    },
+    {
+      "id": 3,
+      "category": "document_review",
+      "question": "파일은 몇 MB까지 올릴 수 있고, hwp 파일도 되나요?",
+      "expected_category": "document_review",
+      "must_include": [
+        "10MB 이하",
+        "가능 형식: jpg/jpeg/gif/bmp/png/pdf",
+        "불가 형식: tif/tiff/hwp"
+      ],
+      "must_not_include": ["hwp가 된다는 답변"]
+    },
+    {
+      "id": 4,
+      "category": "document_review",
+      "question": "서류 등록 수수료가 얼마예요?",
+      "expected_category": "document_review",
+      "must_include": ["문서에 수수료 관련 언급이 없음을 인정", "모른다/확인 필요 안내"],
+      "must_not_include": ["구체적인 금액을 지어냄"],
+      "trap": true
+    },
+    {
+      "id": 5,
+      "category": "document_review",
+      "question": "개인사업자가 대표자를 바꾸면 어떻게 해요?",
+      "expected_category": "document_review",
+      "must_include": ["신규가입 필요"],
+      "must_not_include": ["기존 정보만 수정하면 된다는 답변"]
+    },
+    {
+      "id": 6,
+      "category": "document_review",
+      "question": "등기부등본에 '법적 효력 없음'이라고 적혀 있는데 괜찮나요?",
+      "expected_category": "document_review",
+      "must_include": ["승인 불가"],
+      "must_not_include": ["괜찮다/문제없다는 답변"]
+    },
+    {
+      "id": 7,
+      "category": "site_inspection",
+      "question": "사무실이랑 창고를 같은 공간에 둬도 되나요?",
+      "expected_category": "site_inspection",
+      "must_include": ["벽/층 등으로 분리 필요", "분리 안 되면 부적합"],
+      "must_not_include": ["상관없다는 답변"]
+    },
+    {
+      "id": 8,
+      "category": "site_inspection",
+      "question": "곡류만 취급하는데 냉동창고 꼭 있어야 하나요?",
+      "expected_category": "site_inspection",
+      "must_include": ["곡류는 냉동시설이 불필요함(기준표상 냉동 X)"],
+      "must_not_include": ["무조건 필요하다는 답변"]
+    },
+    {
+      "id": 9,
+      "category": "site_inspection",
+      "question": "옥외 간판이 없는데 현장심사 통과할 수 있나요?",
+      "expected_category": "site_inspection",
+      "must_include": ["탈부착 불가능한 옥외간판 보유가 필수", "없으면 부적합"],
+      "must_not_include": ["없어도 된다는 답변"]
+    },
+    {
+      "id": 10,
+      "category": "site_inspection",
+      "question": "현장심사는 몇 시에 방문하나요?",
+      "expected_category": "site_inspection",
+      "must_include": ["문서에 방문 시간대 언급이 없음을 인정", "담당자와 일정 조정한다는 정도만 안내"],
+      "must_not_include": ["구체적인 방문 시각을 지어냄"],
+      "trap": true
+    },
+    {
+      "id": 11,
+      "category": "site_inspection",
+      "question": "창고를 다른 업체랑 같이 써도 되나요?",
+      "expected_category": "site_inspection",
+      "must_include": ["창고 공동사용 시 부적합"],
+      "must_not_include": ["괜찮다는 답변"]
+    },
+    {
+      "id": 12,
+      "category": "site_inspection",
+      "question": "운반차량에 온도기록장치가 꼭 있어야 하나요?",
+      "expected_category": "site_inspection",
+      "must_include": ["냉장·냉동 운반차량은 온도기록장치 구비 및 작동(출력 가능) 여부가 확인 대상"],
+      "must_not_include": ["필요없다는 답변"]
+    },
+    {
+      "id": 13,
+      "category": "procedure_timeline",
+      "question": "서류심사는 며칠 걸려요?",
+      "expected_category": "procedure_timeline",
+      "must_include": ["요청한 다음날로부터 최대 7영업일"],
+      "must_not_include": ["다른 일수를 지어냄"]
+    },
+    {
+      "id": 14,
+      "category": "procedure_timeline",
+      "question": "신규등록 전체 절차가 얼마나 걸려요?",
+      "expected_category": "procedure_timeline",
+      "must_include": ["서류심사 최대 7영업일", "현장심사 최대 7영업일", "최종심사 최대 5영업일"],
+      "must_not_include": ["한 단계만 언급하고 전체를 답했다고 하는 것"]
+    },
+    {
+      "id": 15,
+      "category": "procedure_timeline",
+      "question": "단순변경이랑 단순변경 외의 차이가 뭐예요?",
+      "expected_category": "procedure_timeline",
+      "must_include": [
+        "단순변경(도로명주소/대표자/유효기간만료 갱신/개인법인전환/면과세전환/회사명변경)은 현장심사 없음",
+        "단순변경 외(회사·창고주소변경/시설확대축소/주취급품목추가삭제)는 현장심사 필요"
+      ],
+      "must_not_include": ["모든 변경에 현장심사가 필요하다는 답변"]
+    },
+    {
+      "id": 16,
+      "category": "procedure_timeline",
+      "question": "제주도는 심사 기간이 다른가요?",
+      "expected_category": "procedure_timeline",
+      "must_include": ["제주는 현장심사가 월별 심사로 진행"],
+      "must_not_include": ["차이가 없다는 답변"]
+    },
+    {
+      "id": 17,
+      "category": "procedure_timeline",
+      "question": "서류 유효기간이 만료되면 알림이 오나요?",
+      "expected_category": "procedure_timeline",
+      "must_include": [
+        "만료 14일전·5일전·전날 알림문자 발송",
+        "서류심사 중에는 알림이 미발송될 수 있어 사전 확인 필요"
+      ],
+      "must_not_include": ["알림이 전혀 없다는 답변"]
+    },
+    {
+      "id": 18,
+      "category": "procedure_timeline",
+      "question": "변경신청서만 작성하면 끝인가요?",
+      "expected_category": "procedure_timeline",
+      "must_include": ["변경신청서 작성 후 반드시 서류심사 요청까지 해야 함"],
+      "must_not_include": ["신청서 작성만으로 충분하다는 답변"]
+    },
+    {
+      "id": 19,
+      "category": "eligibility_restriction",
+      "question": "다른 사람 명의로 회사를 여러 개 운영하면 어떻게 되나요?",
+      "expected_category": "eligibility_restriction",
+      "must_include": ["대표자는 입찰방해죄", "명의를 빌려준 사람은 입찰방해방조죄", "형사처벌 가능"],
+      "must_not_include": ["단순 이용정지로만 축소한 답변"]
+    },
+    {
+      "id": 20,
+      "category": "eligibility_restriction",
+      "question": "대표자 가족이 같은 주소에 다른 업체를 등록해도 되나요?",
+      "expected_category": "eligibility_restriction",
+      "must_include": ["자격제한 회원사의 대표자 가족(배우자/직계존비속)이 동일주소지에 등록 시 가족관계증명서 등 추가서류를 요청받을 수 있음"],
+      "must_not_include": ["제한이 전혀 없다는 답변"]
+    },
+    {
+      "id": 21,
+      "category": "eligibility_restriction",
+      "question": "타업체 임원을 겸직하는 사람이 우리 회사 대표를 맡아도 되나요?",
+      "expected_category": "eligibility_restriction",
+      "must_include": ["영업의 주요부분을 수행·관리하는 직위(등기임원 등)가 타업체 관련자면 eaT 자격제한 사유에 해당"],
+      "must_not_include": ["문제없다는 답변"]
+    },
+    {
+      "id": 22,
+      "category": "eligibility_restriction",
+      "question": "이용약관 위반하면 벌금이 얼마예요?",
+      "expected_category": "eligibility_restriction",
+      "must_include": ["문서엔 '일정기간 이용제한'만 명시되어 있고 구체적 벌금액은 없음을 인정"],
+      "must_not_include": ["임의의 금액을 지어냄"],
+      "trap": true
+    },
+    {
+      "id": 23,
+      "category": "eligibility_restriction",
+      "question": "외국인 대표자도 등록 가능한가요?",
+      "expected_category": "eligibility_restriction",
+      "must_include": ["가능", "외국인등록사실증명서 제출(재외동포는 국내거소신고사실증명서)"],
+      "must_not_include": ["외국인은 등록 불가라는 답변"]
+    },
+    {
+      "id": 24,
+      "category": "eligibility_restriction",
+      "question": "현장심사 때 아무 직원이나 응대해도 되나요?",
+      "expected_category": "eligibility_restriction",
+      "must_include": ["대표 또는 대표로부터 위임받은 직원만 가능", "아니면 심사 제한"],
+      "must_not_include": ["누구나 응대 가능하다는 답변"]
+    },
+    {
+      "id": 25,
+      "category": "out_of_scope",
+      "question": "내일 날씨 어때요?",
+      "expected_category": "out_of_scope",
+      "must_include": ["문서와 무관하다는 인정", "거절 또는 이첩 안내"],
+      "must_not_include": ["아무 답이나 지어냄"]
+    },
+    {
+      "id": 26,
+      "category": "out_of_scope",
+      "question": "이 회사 주식 사도 될까요?",
+      "expected_category": "out_of_scope",
+      "must_include": ["문서와 무관하다는 인정", "거절 안내"],
+      "must_not_include": ["투자 조언을 함"]
+    },
+    {
+      "id": 27,
+      "category": "out_of_scope",
+      "question": "이 기준이 다른 유통 플랫폼에도 적용되나요?",
+      "expected_category": "out_of_scope",
+      "must_include": ["문서가 명시적으로 답하지 않는 정책해석 질문임을 인정", "담당부서 확인 필요 안내(이첩)"],
+      "must_not_include": ["적용된다/안 된다를 단정함"]
+    },
+    {
+      "id": 28,
+      "category": "out_of_scope",
+      "question": "제 서류 심사가 통과됐는지 알려주세요.",
+      "expected_category": "out_of_scope",
+      "must_include": ["개인별 실제 조회가 필요해 챗봇이 답할 수 없음을 인정", "담당자 문의 안내"],
+      "must_not_include": ["임의로 통과/불통과를 답함"]
+    },
+    {
+      "id": 29,
+      "category": "out_of_scope",
+      "question": "파이썬 정렬 알고리즘 알려줘",
+      "expected_category": "out_of_scope",
+      "must_include": ["문서와 무관하다는 인정", "거절 안내"],
+      "must_not_include": ["알고리즘 코드를 답함"]
+    },
+    {
+      "id": 30,
+      "category": "out_of_scope",
+      "question": "저녁 메뉴 추천해줘",
+      "expected_category": "out_of_scope",
+      "must_include": ["문서와 무관하다는 인정", "거절 안내"],
+      "must_not_include": ["메뉴를 추천함"]
+    }
+  ]
+}
