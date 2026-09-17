@@ -1,0 +1,9 @@
+① 의도 분류 정확도: 87% (26/30 건), macro F1 0.868
+  카테고리별:
+    document_review: precision=1.00 recall=0.67 f1=0.80 (n=6)
+    site_inspection: precision=0.83 recall=0.83 f1=0.83 (n=6)
+    procedure_timeline: precision=0.67 recall=1.00 f1=0.80 (n=6)
+    eligibility_restriction: precision=1.00 recall=0.83 f1=0.91 (n=6)
+    out_of_scope: precision=1.00 recall=1.00 f1=1.00 (n=6)
+
+② 1턴 답변 통과율: 26/30 (87%)
