@@ -38,6 +38,25 @@ def compute_classification_metrics(results: list[dict]) -> dict:
     return {"accuracy": accuracy, "macro_f1": macro_f1, "per_class": per_class}
 
 
+def compute_confusion_matrix(results: list[dict]) -> dict[str, dict[str, int]]:
+    """행=기대 카테고리, 열=실제 카테고리인 5x5 혼동 행렬을 만든다."""
+    matrix = {expected: {actual: 0 for actual in CATEGORIES} for expected in CATEGORIES}
+    for r in results:
+        matrix[r["expected_category"]][r["actual_category"]] += 1
+    return matrix
+
+
+def print_confusion_matrix(matrix: dict[str, dict[str, int]]) -> None:
+    short = {c: c.split("_")[0][:4] for c in CATEGORIES}  # 표 폭을 줄이기 위한 약어
+    header = "실제→".rjust(26) + "".join(short[c].rjust(8) for c in CATEGORIES)
+    print(header)
+    for expected in CATEGORIES:
+        row = matrix[expected]
+        cells = "".join(str(row[actual]).rjust(8) for actual in CATEGORIES)
+        print(f"{expected:>26}{cells}")
+    print("(행=기대 카테고리, 열=실제 카테고리, 대각선이 정답)")
+
+
 def main():
     results = json.loads(RESULTS_PATH.read_text(encoding="utf-8"))
     n = len(results)
@@ -49,6 +68,9 @@ def main():
     print("  카테고리별:")
     for c, m in cls_metrics["per_class"].items():
         print(f"    {c}: precision={m['precision']:.2f} recall={m['recall']:.2f} f1={m['f1']:.2f} (n={m['n']})")
+    print()
+    print("혼동 행렬:")
+    print_confusion_matrix(compute_confusion_matrix(results))
     print()
     print(f"② 1턴 답변 통과율: {answer_pass}/{n} ({answer_pass / n:.0%})")
 
