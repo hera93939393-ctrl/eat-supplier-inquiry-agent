@@ -1,0 +1,31 @@
+도구호출 적절성: 25/30 (83%)
+답변 적절성:     24/30 (80%)
+
+틀린 문항:
+  #3 [document_review] 파일은 몇 MB까지 올릴 수 있고, hwp 파일도 되나요?
+    카테고리: 기대=document_review 실제=out_of_scope
+    답변 적절성: False (필수 사실이 전혀 포함되어 있지 않음)
+  #4 [document_review] 서류 등록 수수료가 얼마예요?
+    카테고리: 기대=document_review 실제=procedure_timeline
+    답변 적절성: True (수수료 관련 언급이 없음을 인정하고 확인이 필요하다고 안내함)
+  #5 [document_review] 개인사업자가 대표자를 바꾸면 어떻게 해요?
+    카테고리: 기대=document_review 실제=procedure_timeline
+    답변 적절성: False (신규가입 필요 사실이 없고, 기존 정보만 수정하면 된다는 내용이 포함됨)
+  #8 [site_inspection] 곡류만 취급하는데 냉동창고 꼭 있어야 하나요?
+    카테고리: 기대=site_inspection 실제=site_inspection
+    답변 적절성: False (곡류는 냉동시설이 불필요하다는 사실이 명시되지 않았습니다.)
+  #10 [site_inspection] 현장심사는 몇 시에 방문하나요?
+    카테고리: 기대=site_inspection 실제=procedure_timeline
+    답변 적절성: True (문서에 방문 시간대 언급이 없음을 인정하고, 담당자와 일정 조정한다는 정도만 안내하고 있다.)
+  #13 [procedure_timeline] 서류심사는 며칠 걸려요?
+    카테고리: 기대=procedure_timeline 실제=procedure_timeline
+    답변 적절성: False (다른 일수를 지어낸 부분이 포함되어 있음)
+  #24 [eligibility_restriction] 현장심사 때 아무 직원이나 응대해도 되나요?
+    카테고리: 기대=eligibility_restriction 실제=site_inspection
+    답변 적절성: True (답변은 반드시 담아야 할 사실을 모두 포함하고 있으며, 말하면 안 되는 것을 포함하지 않습니다.)
+  #26 [out_of_scope] 이 회사 주식 사도 될까요?
+    카테고리: 기대=out_of_scope 실제=out_of_scope
+    답변 적절성: False (문서와 무관하다는 인정이 포함되어 있지 않음)
+  #28 [out_of_scope] 제 서류 심사가 통과됐는지 알려주세요.
+    카테고리: 기대=out_of_scope 실제=out_of_scope
+    답변 적절성: False (개인별 실제 조회가 필요하다는 사실이 포함되지 않음)

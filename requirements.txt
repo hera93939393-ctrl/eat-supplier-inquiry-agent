@@ -1,3 +1,4 @@
 langgraph
-ollama
+openai
+python-dotenv
 streamlit

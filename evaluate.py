@@ -7,7 +7,7 @@
 import json
 from pathlib import Path
 
-from agent import _safe_chat, get_client, run, MODEL
+from agent import _safe_chat, get_client, run
 
 GOLDENSET_PATH = Path(__file__).parent / "data" / "goldenset.json"
 RESULTS_PATH = Path(__file__).parent / "data" / "eval_results.json"
@@ -36,13 +36,11 @@ def judge_answer(answer: str, must_include: list[str], must_not_include: list[st
         must_not_include="\n".join(f"- {f}" for f in must_not_include) or "(없음)",
         answer=answer,
     )
-    response = _safe_chat(
-        client, model=MODEL, format="json", think=False, messages=[{"role": "user", "content": prompt}]
-    )
-    if response is None:
+    content = _safe_chat(client, json_mode=True, messages=[{"role": "user", "content": prompt}])
+    if content is None:
         return {"has_all_facts": False, "violates_forbidden": True, "reason": "judge API 오류"}
     try:
-        return json.loads(response["message"]["content"])
+        return json.loads(content)
     except (json.JSONDecodeError, AttributeError):
         return {"has_all_facts": False, "violates_forbidden": True, "reason": "judge 응답 파싱 실패"}
 
