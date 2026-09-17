@@ -164,26 +164,52 @@ eligibility_restriction 두 문서에 같은 사실이 겹쳐 있어 어느 쪽�
 "카테고리 라벨은 골든셋과 다르지만 실제 답변은 정확한" 경계 사례임을 이제 100% 확인했다 —
 즉 이 시스템이 실제 사용자에게 틀린 정보를 준 사례는 최종적으로 0건이다.
 
+### 아키텍처 보정 — "카테고리 선택"과 "넘길지 판단"을 실제로 분리
+
+여기까지는 `classify()` 하나가 5개 옵션(4개 주제 + out_of_scope)을 한 번에 고르고 있었다 —
+카테고리 선택과 이첩 판단이 사실상 한 LLM 호출에 섞여 있었던 것이다. 이를 `classify_category`
+(out_of_scope를 모르는 채 4개 주제 중 강제 선택)와 `check_scope`(그 결과를 안 보고 독립적으로
+범위를 판단)로 나눠서 진짜로 분리했다(§5 다이어그램 참고).
+
+**1차 시도는 오히려 크게 후퇴했다(①87%→67%, ②100%→70%)** — `check_scope`가 "타업체 임원 겸직"
+"약관 위반 시 제재" 같은 명백한 eligibility_restriction 질문들까지 "개인별 판정이 필요하다"며
+범위 밖으로 오판했다. 원인은 독립적으로 판단하게 하니 문맥(주제가 뭘로 분류됐는지) 없이 신중해져,
+가정형·조건형 질문("~하면 어떻게 되나요")을 개인 데이터 조회로 오해한 것이었다.
+`SCOPE_CHECK_PROMPT`에 "기본값은 in_scope=true", "가정형 질문은 일반 규정 질문이지 개인조회가
+아니다"를 명시하고, 대조 예시 2쌍(in_scope=true/false 각각)을 추가해 재실험했다 — **이번엔 예시로
+쓸 문장이 골든셋 문항과 절대 겹치지 않도록 직접 대조 확인했다**(초안에서 실수로 골든셋 문항 4개를
+그대로 예시에 써버려서 한 번 다시 썼다). 결과: **①87%(F1 0.868) / ②100%로 완전히 회복**하면서
+아키텍처 요구사항도 충족했다(`experiments/gpt4o_split_final.json`, `.log`).
+
 ## 5. 파이프라인 구조도
 
 ```mermaid
 flowchart TD
-    Start([사용자 질문]) --> Classify["① classify\n(LLM, 5개 카테고리 중 1개 판정)"]
-    Classify -->|"document_review /\nsite_inspection /\nprocedure_timeline /\neligibility_restriction"| Assemble["② assemble\n(카테고리 → docs/*.md 전체 읽기)"]
-    Classify -->|"out_of_scope"| Assemble
+    Start([사용자 질문]) --> ClassifyCategory["①-a classify_category\n(LLM, 4개 주제 중 강제 선택\nout_of_scope 옵션 자체가 없음)"]
+    Start --> CheckScope["①-b check_scope\n(LLM, classify_category 결과를 모른 채\n독립적으로 in_scope 판단)"]
+    ClassifyCategory --> Resolve["①-c resolve_category\nin_scope=false면 topic 무시하고\nout_of_scope로 확정"]
+    CheckScope --> Resolve
+    Resolve -->|"4개 주제 중 하나"| Assemble["② assemble\n(카테고리 → docs/*.md 전체 읽기)"]
+    Resolve -->|"out_of_scope"| Assemble
     Assemble --> Answer["③ answer\n(LLM, 근거 문서만 보고 답변\n없으면 '확인되지 않음' 고정 문구)"]
-    Answer --> Verify["④ verify\n(LLM, 답변이 근거로 뒷받침되는지 판정)"]
+    Answer --> Verify["④ verify\n(LLM, 답변이 근거로 뒷받침되는지 판정\n완전성이 아니라 지어냈는지만 검사)"]
     Verify --> End([결과 반환: category/context/answer/grounded])
 
     classDef escalate fill:#fee,stroke:#c00
-    class Assemble escalate
+    class Resolve escalate
 ```
 
-- `assemble` 노드는 `category == out_of_scope`이면 빈 문자열을 반환하고, `answer` 노드는 이를 보고
-  고정된 이첩 메시지(`ESCALATION_MESSAGE`)를 바로 반환한다(LLM 호출 생략) — "모르겠으면 넘기기"
-  분기가 여기서 갈라진다.
-- State(`AgentState`)는 `query, category, context, answer, grounded, verify_reason` 여섯 필드를
-  갖는 TypedDict이며, 4개 노드가 순서대로 갱신한다(LangGraph `StateGraph`, 선형 파이프라인).
+- **카테고리를 고르는 일과 넘길지 판단하는 일을 서로 다른 LLM 호출로 분리했다.** `classify_category`는
+  out_of_scope라는 선택지 자체를 모른 채 4개 주제 중 하나를 강제로 고르고, `check_scope`는 그
+  결과를 전혀 보지 않고 질문만 보고 "범위 안인가"를 독립 판단한다. `resolve_category`가 둘을
+  합쳐 `in_scope=false`면 주제가 뭐였든 최종적으로 `out_of_scope`로 확정한다(LangGraph 실행에서는
+  `classify_category`→`check_scope`가 순차 실행되지만, `check_scope`는 `classify_category`의
+  출력에 의존하지 않아 논리적으로 독립적이다).
+- `assemble` 노드는 최종 `category == out_of_scope`이면 빈 문자열을 반환하고, `answer` 노드는
+  이를 보고 고정된 이첩 메시지(`ESCALATION_MESSAGE`)를 바로 반환한다(LLM 호출 생략).
+- State(`AgentState`)는 `query, topic, in_scope, scope_reason, category, context, answer,
+  grounded, verify_reason` 필드를 갖는 TypedDict이며, 6개 노드가 순서대로 갱신한다(LangGraph
+  `StateGraph`).
 
 ## 6. 데모 설계
 

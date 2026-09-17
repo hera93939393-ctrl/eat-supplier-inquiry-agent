@@ -1,0 +1,16 @@
+도구호출 적절성: 26/30 (87%)
+답변 적절성:     30/30 (100%)
+
+틀린 문항:
+  #4 [document_review] 서류 등록 수수료가 얼마예요?
+    카테고리: 기대=document_review 실제=procedure_timeline
+    답변 적절성: True (답변은 수수료 관련 언급이 없음을 인정하고 확인이 필요하다고 안내하며, 구체적인 금액을 지어내지 않았다.)
+  #5 [document_review] 개인사업자가 대표자를 바꾸면 어떻게 해요?
+    카테고리: 기대=document_review 실제=procedure_timeline
+    답변 적절성: True (신규가입이 필요하다는 사실을 포함하고 있으며, 기존 정보 수정에 대한 언급이 없다.)
+  #10 [site_inspection] 현장심사는 몇 시에 방문하나요?
+    카테고리: 기대=site_inspection 실제=procedure_timeline
+    답변 적절성: True (문서에 방문 시간대 언급이 없음을 인정하고, 담당자와 일정 조정한다는 안내만 포함되어 있다.)
+  #24 [eligibility_restriction] 현장심사 때 아무 직원이나 응대해도 되나요?
+    카테고리: 기대=eligibility_restriction 실제=site_inspection
+    답변 적절성: True (답변은 반드시 담아야 할 사실을 모두 포함하고 있으며, 말하면 안 되는 것을 포함하지 않습니다.)
