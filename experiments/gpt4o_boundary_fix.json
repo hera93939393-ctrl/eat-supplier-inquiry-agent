@@ -9,7 +9,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "모든 필수 사실을 포함하고 있으며, 금지된 내용을 포함하지 않음"
+    "judge_reason": "모든 필수 사실이 포함되어 있으며, 금지된 내용은 포함되어 있지 않다."
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "모든 필수 사실을 포함하고 있으며 금지된 내용을 포함하지 않음"
+    "judge_reason": "답변은 반드시 담아야 할 사실을 모두 포함하고 있으며, 말하면 안 되는 것을 포함하지 않습니다."
   },
   {
     "id": 3,
@@ -29,11 +29,11 @@
     "question": "파일은 몇 MB까지 올릴 수 있고, hwp 파일도 되나요?",
     "expected_category": "document_review",
     "actual_category": "document_review",
-    "answer": "파일 용량은 10MB 이하여야 하며, 파일 형식은 jpg, jpeg, gif, bmp, png, pdf만 가능하고 tif, tiff, hwp는 불가합니다.",
+    "answer": "파일 용량은 10MB 이하여야 하며, 파일 형식은 jpg, jpeg, gif, bmp, png, pdf만 가능합니다. hwp 파일은 등록할 수 없습니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "모든 필수 사실을 포함하고 있으며, hwp가 된다는 잘못된 정보는 포함하지 않음"
+    "judge_reason": "모든 필수 사실을 포함하고 있으며, hwp가 된다는 잘못된 정보를 포함하지 않음"
   },
   {
     "id": 4,
@@ -45,7 +45,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "수수료 관련 언급이 없음을 인정하고 확인이 필요하다고 안내함"
+    "judge_reason": "수수료 관련 언급이 없음을 인정하고 확인 필요성을 안내함"
   },
   {
     "id": 5,
@@ -57,7 +57,7 @@
     "grounded": true,
     "tool_call_ok": false,
     "answer_ok": true,
-    "judge_reason": "신규가입이 필요하다는 사실을 담고 있으며, 기존 정보만 수정하면 된다는 내용은 포함하지 않음"
+    "judge_reason": "신규가입이 필요하다는 사실을 포함하고 있으며, 기존 정보만 수정하면 된다는 내용은 포함하지 않음"
   },
   {
     "id": 6,
@@ -69,7 +69,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "승인 불가라는 사실을 담고 있으며, 괜찮다는 내용은 포함하지 않음"
+    "judge_reason": "승인 불가라는 사실을 담고 있으며, 괜찮다는 내용은 없다."
   },
   {
     "id": 7,
@@ -77,11 +77,11 @@
     "question": "사무실이랑 창고를 같은 공간에 둬도 되나요?",
     "expected_category": "site_inspection",
     "actual_category": "site_inspection",
-    "answer": "사무실과 창고(작업장)는 벽/층 등으로 분리가 필요합니다. 따라서 사무실과 창고를 같은 공간에 두는 것은 적합하지 않습니다.",
+    "answer": "사무실과 창고(작업장)는 벽/층 등으로 분리가 필요합니다. 따라서 같은 공간에 두는 것은 적합하지 않습니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "분리 필요성과 분리되지 않으면 부적합하다는 사실을 모두 포함하고 있으며, 상관없다는 내용은 포함하지 않음"
+    "judge_reason": "분리 필요성과 분리되지 않으면 부적합하다는 사실을 모두 담고 있다."
   },
   {
     "id": 8,
@@ -93,7 +93,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "곡류는 냉동시설이 불필요하다는 사실을 포함하고 있으며, 무조건 필요하다는 내용이 없다."
+    "judge_reason": "곡류는 냉동시설이 불필요하다는 사실을 담고 있으며, 무조건 필요하다는 내용은 포함하지 않음"
   },
   {
     "id": 9,
@@ -113,11 +113,11 @@
     "question": "현장심사는 몇 시에 방문하나요?",
     "expected_category": "site_inspection",
     "actual_category": "site_inspection",
-    "answer": "현장심사는 구체적인 방문 시간대까지 정해져 있는 것은 아니며, 관할 지역본부 담당자와 일정을 조정하여 진행합니다. 담당자와 협의해 정합니다.",
+    "answer": "매뉴얼에서 확인되지 않습니다. 담당부서에 확인이 필요합니다.",
     "grounded": true,
     "tool_call_ok": true,
-    "answer_ok": true,
-    "judge_reason": "문서에 방문 시간대 언급이 없음을 인정하고, 담당자와 일정 조정한다는 안내를 포함하고 있으며, 구체적인 방문 시각을 지어내지 않았다."
+    "answer_ok": false,
+    "judge_reason": "방문 시간대 언급이 없음을 인정하지 않았고, 일정 조정에 대한 안내가 부족함"
   },
   {
     "id": 11,
@@ -129,7 +129,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "공동사용이 부적합하다는 사실을 포함하고 있으며, 괜찮다는 답변은 포함하지 않음"
+    "judge_reason": "창고 공동사용 시 부적합하다는 사실을 포함하고 있으며, 괜찮다는 답변은 포함하지 않음"
   },
   {
     "id": 12,
@@ -141,7 +141,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "온도기록장치 구비 및 출력 가능 여부 확인이 포함되어 있다."
+    "judge_reason": "답변은 반드시 담아야 할 사실을 모두 포함하고 있으며, 말하면 안 되는 것을 포함하지 않았다."
   },
   {
     "id": 13,
@@ -149,11 +149,11 @@
     "question": "서류심사는 며칠 걸려요?",
     "expected_category": "procedure_timeline",
     "actual_category": "procedure_timeline",
-    "answer": "서류심사는 다음과 같은 기간이 소요됩니다:\n\n- 신규등록의 경우: 1차 서류심사는 공급사가 요청한 다음날로부터 최대 7영업일 이내에 완료됩니다.\n- 준 등록회원 변경심사의 경우:\n  - 단순변경: 영업일 기준 최대 3일\n  - 단순변경 외: 영업일 기준 최대 3일\n\n서류 변경 및 갱신으로 인한 재심사는 영업일 기준 최대 3일이 소요됩니다.",
+    "answer": "서류심사는 다음과 같은 기간이 소요됩니다:\n\n- 신규등록의 경우, 1차 서류심사는 공급사가 요청한 다음날로부터 최대 7영업일 이내에 완료됩니다.\n- 준 등록회원 변경심사의 경우, 단순변경과 단순변경 외 모두 영업일 기준 최대 3일이 소요됩니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "신규등록 서류심사 기간이 최대 7영업일이라는 사실을 포함하고 있으며, 다른 잘못된 기간을 언급하지 않았다."
+    "judge_reason": "답변은 요청한 다음날로부터 최대 7영업일이라는 사실을 포함하고 있으며, 말하면 안 되는 다른 기간을 언급하지 않았다."
   },
   {
     "id": 14,
@@ -161,11 +161,11 @@
     "question": "신규등록 전체 절차가 얼마나 걸려요?",
     "expected_category": "procedure_timeline",
     "actual_category": "procedure_timeline",
-    "answer": "신규등록 전체 절차는 서류심사, 현장심사, 최종심사 순으로 진행되며, 각각의 최대 소요 기간은 다음과 같습니다:\n\n- 서류심사: 최대 7영업일\n- 현장심사: 최대 7영업일\n- 최종심사: 최대 5영업일\n\n따라서, 전체 절차는 최대 19영업일이 소요될 수 있습니다.",
+    "answer": "신규등록 전체 절차는 서류심사(최대 7일) + 현장심사(최대 7일) + 최종심사(최대 5일) 순으로 진행됩니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "모든 단계의 최대 소요 기간을 정확히 언급하고 전체 절차에 대해 설명하였다."
+    "judge_reason": "모든 심사 단계와 각각의 최대 소요 기간이 언급되었으며, 전체 절차에 대해 설명하고 있다."
   },
   {
     "id": 15,
@@ -173,11 +173,11 @@
     "question": "단순변경이랑 단순변경 외의 차이가 뭐예요?",
     "expected_category": "procedure_timeline",
     "actual_category": "procedure_timeline",
-    "answer": "단순변경과 단순변경 외의 차이는 **현장심사 유무**입니다. \n\n- **단순변경**은 서류심사만으로 끝나고 현장심사가 없습니다. 단순변경에 해당하는 항목은 도로명주소, 대표자, 유효기간만료 서류 갱신, 개인·법인사업자 전환, 면과세 전환, 회사명 변경입니다.\n\n- **단순변경 외**는 서류심사 후 현장심사와 최종심사가 추가로 진행됩니다. 단순변경 외에 해당하는 항목은 회사 및 창고주소 변경, 시설 확대/축소, 주취급품목 추가/삭제입니다. \n\n단순변경 외의 경우, 서류심사 후 현장심사(최대 7일)와 최종심사(최대 5일)까지 추가로 진행됩니다.",
+    "answer": "단순변경과 단순변경 외의 차이는 **현장심사 유무**입니다. \n\n- **단순변경**은 서류심사만으로 끝나고 현장심사가 없습니다. 단순변경에 해당하는 항목은 도로명주소, 대표자, 유효기간만료 서류 갱신, 개인·법인사업자 전환, 면과세 전환, 회사명 변경입니다.\n\n- **단순변경 외**는 서류심사 후 현장심사(최대 7일)와 최종심사(최대 5일)까지 추가로 진행됩니다. 단순변경 외에 해당하는 항목은 회사 및 창고주소 변경, 시설 확대/축소, 주취급품목 추가/삭제입니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "단순변경은 현장심사가 없고 단순변경 외에는 현장심사가 필요하다는 사실을 모두 포함하고 있으며, 모든 변경에 현장심사가 필요하다는 내용은 포함하지 않았다."
+    "judge_reason": "답변은 단순변경과 단순변경 외의 차이를 명확히 설명하고 있으며, 모든 변경에 현장심사가 필요하다는 잘못된 정보를 포함하지 않는다."
   },
   {
     "id": 16,
@@ -185,7 +185,7 @@
     "question": "제주도는 심사 기간이 다른가요?",
     "expected_category": "procedure_timeline",
     "actual_category": "procedure_timeline",
-    "answer": "네, 제주도의 경우 현장심사가 월별로 진행됩니다. 따라서 다른 지역과는 달리 현장심사 일정이 다를 수 있습니다.",
+    "answer": "네, 제주도는 현장심사가 월별로 진행됩니다. 따라서 다른 지역과는 달리 현장심사 일정이 다를 수 있습니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
@@ -225,7 +225,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "답변은 반드시 담아야 할 사실을 모두 포함하고 있으며, 말하면 안 되는 내용을 포함하지 않았다."
+    "judge_reason": "답변은 반드시 담아야 할 사실을 모두 포함하고 있으며, 말하면 안 되는 것을 포함하지 않았다."
   },
   {
     "id": 20,
@@ -249,7 +249,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "답변은 자격제한 사유를 정확히 설명하고 있으며, 문제없다는 언급이 없다."
+    "judge_reason": "답변은 자격제한 사유에 대한 필수 사실을 모두 포함하고 있으며, 문제없다는 내용을 포함하지 않는다."
   },
   {
     "id": 22,
@@ -257,11 +257,11 @@
     "question": "이용약관 위반하면 벌금이 얼마예요?",
     "expected_category": "eligibility_restriction",
     "actual_category": "eligibility_restriction",
-    "answer": "이용약관 위반 시 일정기간 공공급식통합플랫폼 이용이 제한된다는 내용은 있지만, 벌금이나 과태료 액수에 대한 구체적인 금액은 문서에 명시되어 있지 않습니다.",
+    "answer": "이용약관 위반 시 일정기간 공공급식통합플랫폼 이용이 제한되지만, 문서에 구체적인 벌금·과태료 액수는 명시되어 있지 않습니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "문서에 벌금액이 명시되어 있지 않음을 인정하고, 임의의 금액을 지어내지 않았습니다."
+    "judge_reason": "문서에 일정기간 이용제한만 명시되어 있고 구체적 벌금액은 없음을 인정하고 있으며, 임의의 금액을 지어내지 않았다."
   },
   {
     "id": 23,
@@ -269,11 +269,11 @@
     "question": "외국인 대표자도 등록 가능한가요?",
     "expected_category": "eligibility_restriction",
     "actual_category": "eligibility_restriction",
-    "answer": "네, 외국인 대표자의 경우 외국인등록사실증명서를 제출하면 등록이 가능합니다.",
+    "answer": "네, 외국인 대표자도 등록 가능합니다. 외국인 대표자의 경우 외국인등록사실증명서를 제출해야 합니다.",
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "필수 사실을 모두 포함하고 금지된 내용을 포함하지 않음"
+    "judge_reason": "답변은 외국인 등록 가능 여부와 외국인등록사실증명서 제출에 대한 정보를 모두 포함하고 있으며, 외국인은 등록 불가라는 내용을 포함하지 않는다."
   },
   {
     "id": 24,
@@ -281,11 +281,11 @@
     "question": "현장심사 때 아무 직원이나 응대해도 되나요?",
     "expected_category": "eligibility_restriction",
     "actual_category": "site_inspection",
-    "answer": "현장심사 수진자는 대표 또는 대표자로부터 위임받은 직원이어야 합니다. 대표자나 플랫폼에 등록되어 있는 임직원이 아닐 경우 심사가 제한됩니다.",
+    "answer": "현장심사 수진자가 대표 또는 대표자로부터 위임받은 직원인지 확인해야 합니다. 대표자나 플랫폼에 등록되어 있는 임직원이 아닐 경우 심사가 제한됩니다.",
     "grounded": true,
     "tool_call_ok": false,
     "answer_ok": true,
-    "judge_reason": "답변은 반드시 담아야 할 사실을 모두 포함하고 있으며, 말하면 안 되는 것을 포함하지 않습니다."
+    "judge_reason": "답변은 대표 또는 위임받은 직원만 가능하다는 사실을 포함하고 있으며, 누구나 응대 가능하다는 내용을 포함하지 않습니다."
   },
   {
     "id": 25,
@@ -333,7 +333,7 @@
     "grounded": true,
     "tool_call_ok": true,
     "answer_ok": true,
-    "judge_reason": "개인별 조회 필요성과 담당자 문의 안내를 모두 포함하고 있으며, 임의로 통과/불통과를 답하지 않음"
+    "judge_reason": "답변은 개인별 조회 필요성과 담당자 문의 안내를 모두 포함하고 있으며, 임의로 통과/불통과를 답하지 않았다."
   },
   {
     "id": 29,
