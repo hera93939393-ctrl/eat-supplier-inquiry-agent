@@ -238,9 +238,9 @@
     },
     {
       "id": 24,
-      "category": "eligibility_restriction",
+      "category": "site_inspection",
       "question": "현장심사 때 아무 직원이나 응대해도 되나요?",
-      "expected_category": "eligibility_restriction",
+      "expected_category": "site_inspection",
       "must_include": ["대표 또는 대표로부터 위임받은 직원만 가능", "아니면 심사 제한"],
       "must_not_include": ["누구나 응대 가능하다는 답변"]
     },
